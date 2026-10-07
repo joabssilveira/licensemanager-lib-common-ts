@@ -3,7 +3,12 @@
   "devDependencies": {
     "@commitlint/cli": "21.2.2",
     "@commitlint/config-conventional": "21.2.2",
+    "axios": "1.20.0",
+    "datacenter-lib-common-ts": "1.4.1",
+    "fwork-jsts-common": "2.1.0",
+    "goqlite-client": "0.1.6",
     "husky": "9.1.7",
+    "moment": "2.31.0",
     "standard-version": "9.5.0",
     "typescript": "5.9.3"
   },
@@ -27,7 +32,13 @@
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "name": "licensemanager-lib-common-ts",
-  "peerDependencies": {},
+  "peerDependencies": {
+    "axios": "^1.20.0",
+    "datacenter-lib-common-ts": "^1.4.1",
+    "fwork-jsts-common": "^2.1.0",
+    "goqlite-client": "^0.1.6",
+    "moment": "^2.31.0"
+  },
   "prettier": {
     "printWidth": 80,
     "semi": true,

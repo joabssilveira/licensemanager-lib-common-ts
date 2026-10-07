@@ -1,6 +1,6 @@
 import { IHubSetting } from "datacenter-lib-common-ts";
 import { StrictOmit } from "fwork-jsts-common";
-import { IUserSubscriptionPostPayload } from "licensemanager-lib-common-ts";
+import { IUserSubscriptionPostPayload } from "./dto";
 
 export enum HubSettings {
   LmUserRegisterSubscription = 'lm-user-register-subscription',
