@@ -36,4 +36,5 @@ export interface IUserSubscriptionPostPayload {
 export interface IUserSubscriptionInstancePostPayload {
   resourceAliasId: string,
   resourceInstanceIdentifier: string,
+  description: string,
 }

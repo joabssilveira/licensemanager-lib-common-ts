@@ -184,6 +184,7 @@ export interface IUserSubscriptionResourceInstance {
   // portanto, o maximo de registros na subscription é o maxCount de ILicenseDefResource
   // ex.: se um determinado recurso tem um maxCount de 2, devem existir no maximo 2 (instancias) de IUserSubscriptionResources na assinatura (subscription)
   resourceInstanceIdentifier: string,
+  description: string,
 }
 
 export enum UserSubscriptionStatus {

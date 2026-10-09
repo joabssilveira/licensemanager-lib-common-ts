@@ -5,6 +5,10 @@ import { LicensesDefApiClient } from './apiClient/licenses_def'
 import { UsersSubscriptionsApiClient } from './apiClient/users_subscriptions'
 
 import {
+  AuthorizationKeys
+} from './models/authorizations'
+
+import {
   type IUserLicenseCycleTypeDataPostPayload,
   type IUserLicenseCycleTypeDataPostPayload_limitTime,
   type IUserLicenseCycleTypeDataPostPayload_recurringLimitTime,
@@ -12,33 +16,9 @@ import {
   type IUserLicenseCycleTypeDataPostPayload_recurringMonthlyUserDay,
   type IUserLicenseCycleTypeDataPostPayload_recurringYearlyFixedDayAndMonth,
   type IUserLicenseCycleTypeDataPostPayload_unlimited,
-  type IUserSubscriptionPostPayload,
   type IUserSubscriptionInstancePostPayload,
+  type IUserSubscriptionPostPayload,
 } from './models/dto'
-
-import {
-  CheckLicensePayload,
-  CheckLicenseResponse,
-  CheckLicenseResponseItemStatus,
-  ICheckLicensePayloadItem,
-  ICheckLicenseResponseItem,
-  ILicenseDef, ILicenseDefCycleTypeData, ILicenseDefCycleTypeData_limitTime, ILicenseDefCycleTypeData_recurringLimitTime,
-  ILicenseDefCycleTypeData_recurringMonthlyFixedDay, ILicenseDefCycleTypeData_recurringMonthlyUserDay, ILicenseDefCycleTypeData_recurringYearlyFixedDayAndMonth,
-  ILicenseDefCycleTypeData_unlimited,
-  ILicenseDefResource,
-  ILicenseProvider, ILicenseResource,
-  IUserLicenseCycleTypeData, IUserLicenseCycleTypeData_limitTime,
-  IUserLicenseCycleTypeData_recurringLimitTime, IUserLicenseCycleTypeData_recurringMonthlyFixedDay, IUserLicenseCycleTypeData_recurringMonthlyUserDay,
-  IUserLicenseCycleTypeData_recurringYearlyFixedDayAndMonth, IUserLicenseCycleTypeData_unlimited,
-  IUserSubscription,
-  IUserSubscriptionResourceInstance,
-  LicenseCycleType, LicenseDefScope,
-  LicenseResourceMeasurementType, licenseResourceMeasurementTypeOptions,
-  UserSubscriptionStatus, 
-  // VALID_USER_SUBSCRIPTION_STATUSES,
-} from './models'
-
-import { AuthorizationKeys } from './models/authorizations'
 
 import {
   LicenseDefScopeKey,
@@ -56,40 +36,127 @@ import {
 } from './models/factories_user'
 
 import {
-  type HubSettingLmResourceWorkgroup,  
-  type HubSettingLmUserRegisterSubscription, 
-  HubSettings, 
+  type HubSettingLmResourceWorkgroup,
+
+  type HubSettingLmUserRegisterSubscription,
+
+  HubSettings,
+
   HubSettingsGroups,
 } from './models/hubSettings'
 
-import { LicenseDefUtils, } from './utils/licenseDef'
+import {
+  CheckLicensePayload,
+  CheckLicenseResponse,
+  CheckLicenseResponseItemStatus,
+  ICheckLicensePayloadItem,
+  ICheckLicenseResponseItem,
+  ILicenseDef,
+  ILicenseDefCycleTypeData,
+  ILicenseDefCycleTypeData_limitTime,
+  ILicenseDefCycleTypeData_recurringLimitTime,
+  ILicenseDefCycleTypeData_recurringMonthlyFixedDay,
+  ILicenseDefCycleTypeData_recurringMonthlyUserDay,
+  ILicenseDefCycleTypeData_recurringYearlyFixedDayAndMonth,
+  ILicenseDefCycleTypeData_unlimited,
+  ILicenseDefResource,
+  ILicenseProvider,
+  ILicenseResource,
+  IUserLicenseCycleTypeData,
+  IUserLicenseCycleTypeData_limitTime,
+  IUserLicenseCycleTypeData_recurringLimitTime,
+  IUserLicenseCycleTypeData_recurringMonthlyFixedDay,
+  IUserLicenseCycleTypeData_recurringMonthlyUserDay,
+  IUserLicenseCycleTypeData_recurringYearlyFixedDayAndMonth,
+  IUserLicenseCycleTypeData_unlimited,
+  IUserSubscription,
+  IUserSubscriptionResourceInstance,
+  LicenseCycleType,
+  LicenseDefScope,
+  LicenseResourceMeasurementType,
+  licenseResourceMeasurementTypeOptions,
+  UserSubscriptionStatus,
+} from './models'
 
-import { LicenseProviderUtils, } from './utils/licenseProvider'
+import {
+  type IOutboxEventPayloadNewSubscription,
+  type IOutboxEventPayloadResourceInstanceAssignment,
+  OutboxEventType,
+} from './models/outbox'
 
-import { UserSubscriptionUtils, } from './utils/userSubscription'
+import {
+  LicenseDefUtils,
+} from './utils/licenseDef'
+
+import {
+  LicenseProviderUtils,
+} from './utils/licenseProvider'
+
+import {
+  UserSubscriptionUtils,
+} from './utils/userSubscription'
 
 export {
-  type IUserSubscriptionInstancePostPayload,
-  type HubSettingLmResourceWorkgroup,  
-  type HubSettingLmUserRegisterSubscription, 
-  HubSettings, 
-  HubSettingsGroups,
+  ApiRoutesNames,
+  AuthorizationKeys,
+  CheckLicensePayload,
+  CheckLicenseResponse,
+  CheckLicenseResponseItemStatus, 
+  HubSettings,
+  HubSettingsGroups, 
+  ICheckLicensePayloadItem,
+  ICheckLicenseResponseItem,
+  ILicenseDef,
+  ILicenseDefCycleTypeData,
+  ILicenseDefCycleTypeData_limitTime,
+  ILicenseDefCycleTypeData_recurringLimitTime,
+  ILicenseDefCycleTypeData_recurringMonthlyFixedDay,
+  ILicenseDefCycleTypeData_recurringMonthlyUserDay,
+  ILicenseDefCycleTypeData_recurringYearlyFixedDayAndMonth,
+  ILicenseDefCycleTypeData_unlimited,
+  ILicenseDefResource,
+  ILicenseProvider,
+  ILicenseResource,
+  IUserLicenseCycleTypeData,
+  IUserLicenseCycleTypeData_limitTime,
+  IUserLicenseCycleTypeData_recurringLimitTime,
+  IUserLicenseCycleTypeData_recurringMonthlyFixedDay,
+  IUserLicenseCycleTypeData_recurringMonthlyUserDay,
+  IUserLicenseCycleTypeData_recurringYearlyFixedDayAndMonth,
+  IUserLicenseCycleTypeData_unlimited,
+  IUserLicenseCycleTypeDataPostPayload, 
+  IUserSubscription,
+  IUserSubscriptionPostPayload,
+  IUserSubscriptionResourceInstance,
+  LicenseCycleType,
+  LicenseCycleTypeKey,
+  LicenseCycleTypeOptions,
+  LicenseDefScope,
+  LicenseDefScopeKey,
+  LicenseDefScopeOptions,
+  LicenseDefUtils,
+  LicenseProvidersApiClient,
+  LicenseProviderUtils,
+  LicenseResourceMeasurementType,
+  licenseResourceMeasurementTypeOptions,
+  LicenseResourcesApiClient,
+  LicensesDefApiClient, 
+  OutboxEventType, 
+  UsersSubscriptionsApiClient,
+  UserSubscriptionCycleTypeKey,
+  UserSubscriptionCycleTypeOptions, 
   UserSubscriptionStatus, 
-  // VALID_USER_SUBSCRIPTION_STATUSES,
-  ApiRoutesNames, AuthorizationKeys, CheckLicensePayload, CheckLicenseResponse, CheckLicenseResponseItemStatus, ICheckLicensePayloadItem, ICheckLicenseResponseItem,
-  ILicenseDef, ILicenseDefCycleTypeData, ILicenseDefCycleTypeData_limitTime, ILicenseDefCycleTypeData_recurringLimitTime,
-  ILicenseDefCycleTypeData_recurringMonthlyFixedDay, ILicenseDefCycleTypeData_recurringMonthlyUserDay, ILicenseDefCycleTypeData_recurringYearlyFixedDayAndMonth,
-  ILicenseDefCycleTypeData_unlimited, ILicenseDefResource,
-  ILicenseProvider, ILicenseResource, IUserLicenseCycleTypeData, IUserLicenseCycleTypeData_limitTime,
-  IUserLicenseCycleTypeData_recurringLimitTime, IUserLicenseCycleTypeData_recurringMonthlyFixedDay, IUserLicenseCycleTypeData_recurringMonthlyUserDay,
-  IUserLicenseCycleTypeData_recurringYearlyFixedDayAndMonth, IUserLicenseCycleTypeData_unlimited, IUserLicenseCycleTypeDataPostPayload,
+  UserSubscriptionUtils, 
+  type HubSettingLmResourceWorkgroup,
+  type HubSettingLmUserRegisterSubscription, 
+  type IOutboxEventPayloadNewSubscription,
+  type IOutboxEventPayloadResourceInstanceAssignment, 
   type IUserLicenseCycleTypeDataPostPayload_limitTime,
   type IUserLicenseCycleTypeDataPostPayload_recurringLimitTime,
   type IUserLicenseCycleTypeDataPostPayload_recurringMonthlyFixedDay,
   type IUserLicenseCycleTypeDataPostPayload_recurringMonthlyUserDay,
   type IUserLicenseCycleTypeDataPostPayload_recurringYearlyFixedDayAndMonth,
-  type IUserLicenseCycleTypeDataPostPayload_unlimited, IUserSubscription, IUserSubscriptionPostPayload, IUserSubscriptionResourceInstance, LicenseCycleType, LicenseCycleTypeKey, LicenseCycleTypeOptions, LicenseDefScope, LicenseDefScopeKey,
-  LicenseDefScopeOptions, LicenseDefUtils, LicenseProvidersApiClient, LicenseProviderUtils, LicenseResourceMeasurementType, licenseResourceMeasurementTypeOptions,
-  LicenseResourcesApiClient, LicensesDefApiClient, UsersSubscriptionsApiClient, UserSubscriptionCycleTypeKey, UserSubscriptionCycleTypeOptions, UserSubscriptionUtils
+  type IUserLicenseCycleTypeDataPostPayload_unlimited, 
+  type IUserSubscriptionInstancePostPayload
 }
 
