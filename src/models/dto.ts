@@ -1,4 +1,4 @@
-import { IUserSubscriptionResourceInstance, LicenseCycleType } from ".";
+import { IUserSubscriptionResourceInstance, LicenseCycleType, UserSubscriptionResourceInstanceType } from ".";
 
 export interface IUserLicenseCycleTypeDataPostPayload {
   type: LicenseCycleType,
@@ -36,5 +36,6 @@ export interface IUserSubscriptionPostPayload {
 export interface IUserSubscriptionInstancePostPayload {
   resourceAliasId: string,
   resourceInstanceIdentifier: string,
+  resourceInstanceType: UserSubscriptionResourceInstanceType,
   description: string,
 }

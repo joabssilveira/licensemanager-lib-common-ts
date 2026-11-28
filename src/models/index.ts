@@ -120,6 +120,7 @@ export interface ILicenseDef {
   tags?: string,
   scope: LicenseDefScope,
   maxPerUser?: number,
+  defaultUserSubscriptionStatus?: UserSubscriptionStatus,
   allowChangeValue?: boolean,
 
   providerUuid: string,
@@ -176,6 +177,12 @@ export interface IUserLicenseCycleTypeData_recurringYearlyFixedDayAndMonth exten
   nextRenewDateUnix: number,
 }
 
+export const UserSubscriptionResourceInstanceType = {
+  unknown: 'unknown',
+  dcworkgroup: 'dcworkgroup',
+} as const
+export type UserSubscriptionResourceInstanceType = typeof UserSubscriptionResourceInstanceType[keyof typeof UserSubscriptionResourceInstanceType]
+
 // subdoc
 export interface IUserSubscriptionResourceInstance {
   uuid: string,
@@ -184,6 +191,7 @@ export interface IUserSubscriptionResourceInstance {
   // portanto, o maximo de registros na subscription é o maxCount de ILicenseDefResource
   // ex.: se um determinado recurso tem um maxCount de 2, devem existir no maximo 2 (instancias) de IUserSubscriptionResources na assinatura (subscription)
   resourceInstanceIdentifier: string,
+  resourceInstanceType: UserSubscriptionResourceInstanceType,
   description: string,
 }
 
@@ -197,6 +205,53 @@ export enum UserSubscriptionStatus {
   expired = 'expired',           // ciclo terminou e nao foi renovada
   revoked = 'revoked',           // revogada pelo provider/admin (fraude, violacao, estorno)
 }
+export const userSubscriptionStatusOptions: Record<keyof typeof UserSubscriptionStatus, {
+  desc: string,
+  additionalDesc: string,
+  canDefault: boolean,
+}> = {
+  pending: {
+    desc: 'Criada, aguardando pagamento/ativação',
+    additionalDesc: '',
+    canDefault: true,
+  },
+  trial: {
+    desc: 'Periodo de teste',
+    additionalDesc: '',
+    canDefault: true,
+  },
+  active: {
+    desc: 'Vigente e em dia',
+    additionalDesc: '',
+    canDefault: true,
+  },
+  grace_period: {
+    desc: 'Vencida/inadimplente, mas ainda com acesso temporario',
+    additionalDesc: '',
+    canDefault: false,
+  },
+  suspended: {
+    desc: 'Acesso bloqueado temporariamente (inadimplencia, analise, etc.), reversivel',
+    additionalDesc: '',
+    canDefault: false,
+  },
+  canceled: {
+    desc: 'Cancelada pelo usuario/owner (pode valer ate o fim do ciclo)',
+    additionalDesc: '',
+    canDefault: false,
+  },
+  expired: {
+    desc: 'Ciclo terminou e nao foi renovada',
+    additionalDesc: '',
+    canDefault: false,
+  },
+  revoked: {
+    desc: 'Revogada pelo provider/admin (fraude, violacao, estorno)',
+    additionalDesc: '',
+    canDefault: false,
+  },
+}
+export const userSubscriptionStatusActive = [UserSubscriptionStatus.trial, UserSubscriptionStatus.active, UserSubscriptionStatus.grace_period]
 
 export interface IUserSubscription {
   uuid: string,
@@ -221,6 +276,11 @@ export interface IUserSubscription {
 
   status: UserSubscriptionStatus,
   tags?: string,
+
+  webHook?: {
+    baseUrlUuid: string,
+    endpoint: string,
+  }[]
 }
 
 // 

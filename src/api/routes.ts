@@ -6,10 +6,13 @@ export const ApiRoutesNames = {
   licenseResources: '/license-resources',
   licensesDef: '/licenses-def',
   usersSubscriptions: '/users-subscriptions',
+  usersSubscriptionsId: '/users-subscriptions/:id',
   // 
-  usersSubscriptionsInstances: '/users-subscriptions/:id/instance',
-  usersSubscriptionsFindLastByOwnerAndResources: '/users-subscriptions-find-last-by-owner-and-resources', // rpc
-  usersSubscriptionsFindLastByInstanceAndResources: '/users-subscriptions-find-last-by-instance-and-resources', // rpc
+  usersSubscriptionsResourcesInstances: '/users-subscriptions/:id/resources-instances',
+  usersSubscriptionsResourcesInstancesId: '/users-subscriptions/:id/resources-instances/:resource_identifier',
+  usersSubscriptionsFindLastActiveSubscriptionByOwnerAndResources: '/users-subscriptions-find-last-active-by-owner-and-resources', // rpc
+  usersSubscriptionsFindLastActiveSubscriptionByInstanceAndResources: '/users-subscriptions-find-last-active-by-instance-and-resources', // rpc
+  usersSubscriptionsFindLastActiveSubscriptionByInstance: '/users-subscriptions-find-last-active-by-instance', // rpc
   // 
-  licenseOwners: '/license-owners',
+  // licenseOwners: '/license-owners',
 }

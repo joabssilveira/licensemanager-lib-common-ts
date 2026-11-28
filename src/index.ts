@@ -36,14 +36,12 @@ import {
 } from './models/factories_user'
 
 import {
-  type HubSettingLmResourceWorkgroup,
+  type IHubSettingLmResourceWorkgroup,
 
-  type HubSettingLmUserRegisterSubscription,
-
-  HubSettings,
-
-  HubSettingsGroups,
-} from './models/hubSettings'
+  type IHubSettingLmUserRegisterSubscription,
+  HubSettingsGroupsLm,
+  HubSettingsLm,
+} from './models/hub'
 
 import {
   CheckLicensePayload,
@@ -75,12 +73,17 @@ import {
   LicenseDefScope,
   LicenseResourceMeasurementType,
   licenseResourceMeasurementTypeOptions,
+  UserSubscriptionResourceInstanceType,
   UserSubscriptionStatus,
+  userSubscriptionStatusOptions,
+  userSubscriptionStatusActive,
 } from './models'
 
 import {
-  type IOutboxEventPayloadNewSubscription,
-  type IOutboxEventPayloadResourceInstanceAssignment,
+  type IOutboxEventLm,
+  type IOutboxEventPayloadSubscriptionCreate,
+  type IOutboxEventPayloadSubscriptionResourceInstanceAssign,
+  type IOutboxEventPayloadSubscriptionSaved,
   OutboxEventType,
 } from './models/outbox'
 
@@ -97,13 +100,14 @@ import {
 } from './utils/userSubscription'
 
 export {
+  userSubscriptionStatusActive,
   ApiRoutesNames,
   AuthorizationKeys,
   CheckLicensePayload,
   CheckLicenseResponse,
   CheckLicenseResponseItemStatus, 
-  HubSettings,
-  HubSettingsGroups, 
+  HubSettingsGroupsLm, 
+  HubSettingsLm, 
   ICheckLicensePayloadItem,
   ICheckLicenseResponseItem,
   ILicenseDef,
@@ -124,7 +128,7 @@ export {
   IUserLicenseCycleTypeData_recurringMonthlyUserDay,
   IUserLicenseCycleTypeData_recurringYearlyFixedDayAndMonth,
   IUserLicenseCycleTypeData_unlimited,
-  IUserLicenseCycleTypeDataPostPayload, 
+  IUserLicenseCycleTypeDataPostPayload,
   IUserSubscription,
   IUserSubscriptionPostPayload,
   IUserSubscriptionResourceInstance,
@@ -140,23 +144,27 @@ export {
   LicenseResourceMeasurementType,
   licenseResourceMeasurementTypeOptions,
   LicenseResourcesApiClient,
-  LicensesDefApiClient, 
-  OutboxEventType, 
+  LicensesDefApiClient,
+  OutboxEventType,
   UsersSubscriptionsApiClient,
   UserSubscriptionCycleTypeKey,
   UserSubscriptionCycleTypeOptions, 
-  UserSubscriptionStatus, 
-  UserSubscriptionUtils, 
-  type HubSettingLmResourceWorkgroup,
-  type HubSettingLmUserRegisterSubscription, 
-  type IOutboxEventPayloadNewSubscription,
-  type IOutboxEventPayloadResourceInstanceAssignment, 
+  UserSubscriptionResourceInstanceType, 
+  UserSubscriptionStatus,
+  userSubscriptionStatusOptions,
+  UserSubscriptionUtils,
+  type IHubSettingLmResourceWorkgroup,
+  type IHubSettingLmUserRegisterSubscription, 
+  type IOutboxEventLm, 
+  type IOutboxEventPayloadSubscriptionCreate as IOutboxEventPayloadNewSubscription,
+  type IOutboxEventPayloadSubscriptionResourceInstanceAssign as IOutboxEventPayloadResourceInstanceAssignment,
+  type IOutboxEventPayloadSubscriptionSaved,
   type IUserLicenseCycleTypeDataPostPayload_limitTime,
   type IUserLicenseCycleTypeDataPostPayload_recurringLimitTime,
   type IUserLicenseCycleTypeDataPostPayload_recurringMonthlyFixedDay,
   type IUserLicenseCycleTypeDataPostPayload_recurringMonthlyUserDay,
   type IUserLicenseCycleTypeDataPostPayload_recurringYearlyFixedDayAndMonth,
-  type IUserLicenseCycleTypeDataPostPayload_unlimited, 
+  type IUserLicenseCycleTypeDataPostPayload_unlimited,
   type IUserSubscriptionInstancePostPayload
 }
 
